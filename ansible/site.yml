@@ -1,0 +1,88 @@
+---
+# ==========================================
+# PLAY 1: Install & Configure Nginx
+# ==========================================
+- name: Play 1 - Install & Configure Nginx
+  hosts: web
+  become: true
+  tasks:
+    - name: Update apt cache and install Nginx & Git
+      ansible.builtin.apt:
+        name:
+          - nginx
+          - git
+        state: present
+        update_cache: yes
+
+    - name: Ensure Nginx is started and enabled
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+
+# ==========================================
+# PLAY 2: Clone & Deploy Mini Finance Site
+# ==========================================
+- name: Play 2 - Clone & Deploy Mini Finance Site
+  hosts: web
+  become: true
+  tasks:
+    - name: Clone Mini Finance repository to a temporary directory
+      ansible.builtin.git:
+        repo: https://github.com/pravinmishraaws/mini_finance.git
+        dest: /tmp/mini_finance
+        clone: yes
+        update: yes
+
+    - name: Wipe corrupted web root to reset permissions
+      ansible.builtin.file:
+        path: /var/www/html
+        state: absent
+
+    - name: Copy site content to clean Nginx web root
+      ansible.builtin.copy:
+        src: /tmp/mini_finance/
+        dest: /var/www/html/
+        remote_src: yes
+        owner: www-data
+        group: www-data
+        directory_mode: '0755'
+      notify: Reload Nginx
+
+    - name: Personalize the User Profile Name
+      ansible.builtin.replace:
+        path: /var/www/html/index.html
+        regexp: 'Curwen Arthurs'
+        replace: 'Pratyush Pahari'
+
+    - name: Personalize the User Profile Email
+      ansible.builtin.replace:
+        path: /var/www/html/index.html
+        regexp: 'curwen@site\.com'
+        replace: 'pratyushpahari02@gmail.com'
+
+    - name: Personalize the User Profile Phone
+      ansible.builtin.replace:
+        path: /var/www/html/index.html
+        regexp: '\(60\) 12 345 6789'
+        replace: '+91 9002260296'
+
+  handlers:
+    - name: Reload Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: reloaded
+
+# ==========================================
+# PLAY 3: Verify Deployment
+# ==========================================
+- name: Play 3 - Verify Deployment
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Assert HTTP 200 status code on the web server
+      ansible.builtin.uri:
+        url: "http://{{ item }}"
+        status_code: 200
+      loop: "{{ groups['web'] }}"

@@ -1,0 +1,9 @@
+# Terraform ignores
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+
+# OS generated files
+.DS_Store
