@@ -39,7 +39,9 @@ To run this project seamlessly on your local machine, you must have the followin
 * **Operating System:** Linux, macOS, or **Windows Subsystem for Linux (WSL)**. *(Note: Ansible does not run natively on Windows Command Prompt or PowerShell).*
 * **[Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli):** Authenticated to your Azure account (`az login`).
 * **[Terraform](https://developer.hashicorp.com/terraform/downloads):** Installed and added to your system PATH.
-* **[Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):** Installed via Python/Pip or your package manager.
+* **[Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html):** Installed on your system. You can install it globally via your package manager (e.g., `sudo apt install ansible`) or via `pipx` (`pipx install ansible`).
+
+  (Note: If you are using standard `pip`, it is highly recommended to install it inside an active Python virtual environment).
 * **SSH Key Pair:** You must have an SSH key to connect to the VM securely. 
   * If you don't have one, generate it by running: `ssh-keygen -t ed25519 -C "your_email@example.com"` (press Enter to accept default locations).
 
@@ -121,7 +123,7 @@ Open your favorite web browser and navigate to:
 
 You should see the Mini Finance dashboard live on the internet, branded with your personal details 🎉
 
-## Clean Up (Save Your Cloud Credits!)
+## Clean Up (Save Your Cloud Credits)
 To avoid being billed for resources when you are done testing, destroy the infrastructure.
 
 Navigate back to the Terraform folder and run:
