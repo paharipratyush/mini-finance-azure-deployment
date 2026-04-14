@@ -5,11 +5,18 @@
 ![Azure](https://img.shields.io/badge/Microsoft_Azure-0089D6?style=for-the-badge&logo=microsoft-azure&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 
-An end-to-end Infrastructure as Code (IaC) and Configuration Management pipeline. This project provisions a secure Azure Virtual Machine from scratch and automatically deploys a dynamic "Mini Finance" web application, injecting custom user data on the fly.
+Deploy an end-to-end Production-Ready Web Application on Azure using Terraform & Ansible - Fully Automated, Reproducible, and Cost-Optimized. This project provisions a secure Azure Virtual Machine from scratch and automatically deploys a dynamic "Mini Finance" web application, injecting custom user data on the fly.
 
 This project was built as part of the **DevOps Micro Internship (#DMI) Cohort 2.0** by [Pravin Mishra](https://www.linkedin.com/in/pravin-mishra-aws-trainer/).
 
 ---
+## ✨ Key Features
+
+- End-to-end Infrastructure + Configuration automation
+- Secure VM provisioning with SSH key authentication
+- Dynamic content injection using Ansible
+- Automated deployment verification (HTTP 200 check)
+- Clean teardown for cost optimization
 
 ## 🏗️ Architecture & Workflow
 
@@ -122,6 +129,13 @@ Open your favorite web browser and navigate to:
 `http://<YOUR_COPIED_PUBLIC_IP>`
 
 You should see the Mini Finance dashboard live on the internet, branded with your personal details 🎉
+
+## ✅ Final Outcome
+
+- Azure VM successfully provisioned via Terraform
+- Application deployed via Ansible multi-playbook
+- Website served via Nginx and verified with HTTP 200
+- Infrastructure destroyed post-validation to optimize cost
 
 ## Clean Up (Save Your Cloud Credits)
 To avoid being billed for resources when you are done testing, destroy the infrastructure.
